@@ -135,7 +135,7 @@ def manage_delta(deltas: np.ndarray, columns, n, precision):
         try:
             t0 = columns[0].total_seconds()
         except AttributeError:
-            t0 = pd.to_datetime(columns).astype(int)[0] * 1e-9
+            t0 = pd.to_datetime(columns).astype("int64")[0] * 1e-9
     return dt, t0
 
 
@@ -183,6 +183,6 @@ def shift_from_interp(
             sd = starting_dates.loc[index]
             f = data.loc[index, "interpolation"]
             dates = pd.to_datetime(df_data_date.columns.to_numpy()) - sd
-            df_data_date.loc[index] = f(dates.astype(int))
+            df_data_date.loc[index] = f(dates.astype("int64"))
 
     return df_data_date

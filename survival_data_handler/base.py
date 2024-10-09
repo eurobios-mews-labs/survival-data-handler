@@ -70,7 +70,7 @@ class TimeCurveData(pd.DataFrame, TimeCurve):
 
     def __interpolator(self):
         self.__interpolation = {
-            c: interp1d(self.columns.astype(int), self.loc[c], fill_value="extrapolate")
+            c: interp1d(self.columns.astype("int64"), self.loc[c], fill_value="extrapolate")
             for c in self.index}
 
     def derivative(self):
@@ -84,15 +84,24 @@ class TimeCurveData(pd.DataFrame, TimeCurve):
 
     def __truediv__(self, other):
         return TimeCurveData(
-            pd.DataFrame(self.values / self.__other(other), columns=self.columns, index=self.index), )
+            pd.DataFrame(
+                self.values / self.__other(other),
+                columns=self.columns,
+                index=self.index))
 
     def __add__(self, other):
-        return TimeCurveData(pd.DataFrame(self.values + self.__other(other), columns=self.columns, index=self.index),
-                             )
+        return TimeCurveData(
+            pd.DataFrame(
+                self.values + self.__other(other),
+                columns=self.columns,
+                index=self.index))
 
     def __sub__(self, other):
-        return TimeCurveData(pd.DataFrame(self.values - self.__other(other), columns=self.columns, index=self.index),
-                             )
+        return TimeCurveData(
+            pd.DataFrame(
+                self.values - self.__other(other),
+                columns=self.columns,
+                index=self.index))
 
     def __neg__(self):
         return TimeCurveData(pd.DataFrame(-self.values, index=self.index, columns=self.columns))
@@ -116,7 +125,8 @@ class TimeCurveInterpolation(TimeCurve):
     def __init__(
             self,
             interpolation: dict,
-            birth, index: pd.Series,
+            birth: iter,
+            index: pd.Series,
             window: tuple,
             period):
         self.__interpolation = interpolation
