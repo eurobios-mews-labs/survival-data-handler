@@ -5,7 +5,12 @@
 The aim of this package is to facilitate the use of survival data by switching from temporal data in the form of a
 collection of survival functions to temporal matrices calculating other functions derived from survival analysis, 
 such as residual life, hazard function, etc.  analysis, such as residual life expectancy, hazard function, etc.
+### Install
+```shell
+pip install survival-data-handler
+```
 
+### Usage
 ```python
 import pandas as pd
 
